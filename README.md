@@ -1,11 +1,13 @@
-# UnitfulLinearAlgebra
+# MultipliableMatrices
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ggebbie.github.io/UnitfulLinearAlgebra.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ggebbie.github.io/UnitfulLinearAlgebra.jl/dev/)
-[![Build Status](https://github.com/ggebbie/UnitfulLinearAlgebra.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ggebbie/UnitfulLinearAlgebra.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/ggebbie/UnitfulLinearAlgebra.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ggebbie/UnitfulLinearAlgebra.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ggebbie.github.io/MultipliableMatrices.jl/stable/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ggebbie.github.io/MultipliableMatrices.jl/dev/)
+[![Build Status](https://github.com/ggebbie/MultipliableMatrices.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ggebbie/MultipliableMatrices.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/ggebbie/MultipliableMatrices.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ggebbie/MultipliableMatrices.jl)
 
-More linear algebra functions for matrices with units
+Fork of UnitfulLinearAlgebra.jl. Use UnitfulLinearAlgebra if performance matters.
+
+Linear algebra functions for matrices with units. A range of multipliable matrix types is defined, permitting linear algebra operations not available in Unitful.jl.
 
 ## Usage
 
@@ -13,9 +15,9 @@ More linear algebra functions for matrices with units
 2. Do linear algebra operations like `inv`, `svd`, `cholesky`, `\`, `eigen`, and more.
 
 ```
-import Pkg; Pkg.add(url="https://github.com/ggebbie/UnitfulLinearAlgebra.jl")
+import Pkg; Pkg.add(url="https://github.com/ggebbie/MultipliableMatrices.jl")
 ENV["UNITFUL_FANCY_EXPONENTS"] = true
-using UnitfulLinearAlgebra
+using MultipliableMatrices
 using Unitful
 using LinearAlgebra
 m = u"m"
@@ -70,7 +72,7 @@ Julia provides a great environment for defining quantities with units and doing 
 
 George W. Hart lays it out in "Multidimensional Analysis: Algebras and Systems for Science and Engineering" (Springer-Verlag, 1995). His approach fits nicely into Julia's type system and multiple dispatch. This packages aims to return objects defined by the `LinearAlgebra` package but extended for use with `AbstractMultipliableMatrix`s. 
 
-Due to Unitful quantities that change types, it is not always easy to properly compose UnitfulLinearAlgebra functions with Unitful and LinearAlgebra functions. Also, some LinearAlgebra functions like `eigen` are highly restricted with unitful matrices. The `SVD` factorization object also makes assumptions that do not hold for matrices with units. Some compromises and design choices are necessary.
+Due to Unitful quantities that change types, it is not always easy to properly compose MultipliableMatrices functions with Unitful and LinearAlgebra functions. Also, some LinearAlgebra functions like `eigen` are highly restricted with unitful matrices. The `SVD` factorization object also makes assumptions that do not hold for matrices with units. Some compromises and design choices are necessary.
 
 ## Performance
 
@@ -168,7 +170,7 @@ Run the following Julia code
     ],
              )`
 
-`t("UnitfulLinearAlgebra.jl")`
+`t("MultipliableMatrices.jl")`
 
 2. Make a new empty repository on GitHub.
 	
@@ -176,7 +178,7 @@ Run the following Julia code
     `git push -u origin main`
 
 	Previously it required setting the remote and branch name via the following settings. Not anymore.
-    `git remote add origin git@github.com:ggebbie/UnitfulLinearAlgebra.jl.git`\
+    `git remote add origin git@github.com:ggebbie/MultipliableMatrices.jl.git`\
    `git branch -M main`
  
   In magit, use the command `M a` to set origin, but it's not necessary anymore.

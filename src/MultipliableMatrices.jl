@@ -1,4 +1,4 @@
-module UnitfulLinearAlgebra
+module MultipliableMatrices
 
 using Unitful, LinearAlgebra, SparseArrays
 
@@ -938,7 +938,7 @@ function (\)(A::AbstractMultipliableMatrix,b::AbstractVector)
         Anew = convert_unitrange(A,unit.(b)) # inefficient?
         return (Anew.numbers\ustrip.(b)).*unitdomain(Anew)
     else
-        error("UnitfulLinearAlgebra.mldivide: Dimensions of MultipliableMatrix and vector not compatible")
+        error("MultipliableMatrices.mldivide: Dimensions of MultipliableMatrix and vector not compatible")
     end
 end
 
@@ -950,7 +950,7 @@ function (\)(A::AbstractMultipliableMatrix,B::AbstractMultipliableMatrix)
         convert_unitrange!(A,unitrange(B)) # inefficient?
         return BestMultipliableMatrix(A.numbers\B.numbers,unitdomain(A),unitdomain(B),exact = (exact(A)&&exact(B)))
     else
-        error("UnitfulLinearAlgebra.mldivide: Dimensions of Multipliable Matrices A and B not compatible")
+        error("MultipliableMatrices.mldivide: Dimensions of Multipliable Matrices A and B not compatible")
     end
 end
 
@@ -964,11 +964,11 @@ end
 """
 function (\)(F::LU{T,<: AbstractMultipliableMatrix{T},Vector{Int64}}, B::AbstractVector) where T<:Number
 
-    # UnitfulLinearAlgebra: F - > F.factors
+    # MultipliableMatrices: F - > F.factors
     LinearAlgebra.require_one_based_indexing(B)
     m, n = size(F)
 
-    # UnitfulLinearAlgebra: check units
+    # MultipliableMatrices: check units
     if dimension(unitrange(F.factors)) == dimension(B)
          # pass without any issues
     elseif dimension(unitrange(F.factors)) ∥ dimension(b)
@@ -1006,7 +1006,7 @@ function (\)(F::LU{T,<: AbstractMultipliableMatrix{T},Vector{Int64}}, B::Abstrac
     # For tall problems, we compute a least squares solution so only part
     # of the rhs should be returned from \ while ldiv! uses (and returns)
     # the complete rhs
-    # UnitfulLinearAlgebra: add units
+    # MultipliableMatrices: add units
     return LinearAlgebra._cut_B(BB, 1:n).*unitdomain(F.factors)
 end
 
@@ -1040,7 +1040,7 @@ function ldiv!(A::AbstractMultipliableMatrix,b::AbstractVector)
         end
 
     else
-        error("UnitfulLinearAlgebra.ldiv!: Dimensions of MultipliableMatrix and vector not compatible")
+        error("MultipliableMatrices.ldiv!: Dimensions of MultipliableMatrix and vector not compatible")
     end
     
 end
@@ -1069,7 +1069,7 @@ trace(A::T) where T<: AbstractMultipliableMatrix = sum(diag(A.numbers)).*(unitra
 """
     function eigen(A::T;permute::Bool=true, scale::Bool=true, sortby::Union{Function,Nothing}=eigsortby) where T <: AbstractMultipliableMatrix
 
-    Thin wrapper for `UnitfulLinearAlgebra.eigen` with same keyword arguments as `LinearAlgebra.eigen`.
+    Thin wrapper for `MultipliableMatrices.eigen` with same keyword arguments as `LinearAlgebra.eigen`.
     There are multiple ways to distribute the units amongst the values and vectors.
     Here, physical intuition and the equation 𝐀𝐱 = λ𝐱
     dictate that the units of the eigenvectors are equal to the unit domain of 𝐀 (pp. 206, Hart, 1995).
@@ -1085,7 +1085,7 @@ function eigen(A::T;permute::Bool=true, scale::Bool=true, sortby::Union{Function
         F = LinearAlgebra.eigen(A.numbers, permute=permute, scale=scale, sortby=sortby)
         return Eigen(F.values.*(unitrange(A)[1]/unitdomain(A)[1]), BestMultipliableMatrix(F.vectors,unitdomain(A),fill(unit(1.0),size(A,2))))
     else
-        error("UnitfulLinearAlgebra: Eigenvalue decomposition doesn't exist for for non-squarable matrices")
+        error("MultipliableMatrices: Eigenvalue decomposition doesn't exist for for non-squarable matrices")
     end
 end
 
@@ -1113,7 +1113,7 @@ function inv(A::Eigen{T,V,S,U}) where {U <: AbstractVector, S <: AbstractMultipl
         # but this is not available yet for `Multipliable Matrix`s.
 
     else
-        error("UnitfulLinearAlgebra: Eigen factorization can only be inverted for uniform matrices")
+        error("MultipliableMatrices: Eigen factorization can only be inverted for uniform matrices")
     end
 end
 
@@ -1133,7 +1133,7 @@ function svd(A::AbstractMultipliableMatrix;full=false,alg::LinearAlgebra.Algorit
         # They are also Uniform and Endomorphic
         return SVD(F.U,F.S * unitrange(A)[1]./unitdomain(A)[1],F.Vt)
     else
-        error("UnitfulLinearAlgebra: SVD doesn't exist for non-uniform matrices")
+        error("MultipliableMatrices: SVD doesn't exist for non-uniform matrices")
     end
 end
 
@@ -1324,7 +1324,7 @@ end
     Cholesky decomposition extended for matrices with units.
     Requires unit (or dimensionally) symmetric matrix.
     Functions available for LinearAlgebra.Cholesky objects: `size`, `\`, `inv`, `det`, `logdet` and `isposdef`.
-    Functions available for UnitfulLinearAlgebra.Cholesky objects: `size`, `det`, and `isposdef`.
+    Functions available for MultipliableMatrices.Cholesky objects: `size`, `det`, and `isposdef`.
 """
 function cholesky(A::AbstractMultipliableMatrix)
     if unit_symmetric(A)

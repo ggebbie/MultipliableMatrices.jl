@@ -1,4 +1,4 @@
-name = "UnitfulLinearAlgebra"
+name = "MultipliableMatrices"
 uuid = "c14bd059-d406-4571-8f61-9bd20e53c30b"
 authors = ["G Jake Gebbie <ggebbie@whoi.edu>"]
 version = "0.1.0"
