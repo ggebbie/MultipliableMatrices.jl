@@ -1,12 +1,12 @@
 ENV["UNITFUL_FANCY_EXPONENTS"] = true
 using Revise
-using UnitfulLinearAlgebra
+using MultipliableMatrices
 using Unitful
 using LinearAlgebra
 using SparseArrays
 using Test
 
-@testset "UnitfulLinearAlgebra.jl" begin
+@testset "MultipliableMatrices.jl" begin
 
     m = u"m"
     s = u"s"
@@ -218,7 +218,7 @@ using Test
             @test endomorphic(A)
 
             # endomorphic should have dimensionless eigenvalues
-            F = UnitfulLinearAlgebra.eigen(B)
+            F = MultipliableMatrices.eigen(B)
             for j in F.values
                 @test dimensionless(j)
             end
@@ -277,7 +277,7 @@ using Test
             @test squarable(B)
             B*B == B^2
 
-            C = UnitfulLinearAlgebra.eigen(B)
+            C = MultipliableMatrices.eigen(B)
             vals, vecs = C; # destructuring via iteration
             @test vals == C.values && vecs == C.vectors
             @test within(inv(B),inv(C),1e-10)
@@ -298,7 +298,7 @@ using Test
 
             # compute det using Eigen factorization
             @test within(det(C),det(B),1e-10)
-            @test UnitfulLinearAlgebra.isposdef(C)
+            @test MultipliableMatrices.isposdef(C)
 
         end
         
@@ -322,7 +322,7 @@ using Test
             # try cholesky decomposition
             Qnodims = cholesky(Anodims)
 
-            Q = UnitfulLinearAlgebra.cholesky(B)
+            Q = MultipliableMatrices.cholesky(B)
             test1 = Matrix(transpose(Q.U)*Q.U)
             @test within(B,test1,1e-10)
 
@@ -396,7 +396,7 @@ using Test
             x̂ = G \ y
 
             #y2 = convert(Vector{Quantity},y)
-            #UnitfulLinearAlgebra.ldiv!(G,y2)
+            #MultipliableMatrices.ldiv!(G,y2)
             @test within(x̂,x, 1e-10)
 
             # an inexact matrix
