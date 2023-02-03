@@ -1,16 +1,16 @@
-using UnitfulLinearAlgebra
+using MultipliableMatrices
 using Documenter
 
-DocMeta.setdocmeta!(UnitfulLinearAlgebra, :DocTestSetup, :(using UnitfulLinearAlgebra); recursive=true)
+DocMeta.setdocmeta!(MultipliableMatrices, :DocTestSetup, :(using MultipliableMatrices); recursive=true)
 
 makedocs(;
-    modules=[UnitfulLinearAlgebra],
+    modules=[MultipliableMatrices],
     authors="G Jake Gebbie <ggebbie@whoi.edu>",
-    repo="https://github.com/ggebbie/UnitfulLinearAlgebra.jl/blob/{commit}{path}#{line}",
-    sitename="UnitfulLinearAlgebra.jl",
+    repo="https://github.com/ggebbie/MultipliableMatrices.jl/blob/{commit}{path}#{line}",
+    sitename="MultipliableMatrices.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://ggebbie.github.io/UnitfulLinearAlgebra.jl",
+        canonical="https://ggebbie.github.io/MultipliableMatrices.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/ggebbie/UnitfulLinearAlgebra.jl",
+    repo="github.com/ggebbie/MultipliableMatrices.jl",
     devbranch="main",
 )

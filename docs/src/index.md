@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = UnitfulLinearAlgebra
+CurrentModule = MultipliableMatrices
 ```
 
-# UnitfulLinearAlgebra
+# MultipliableMatrices
 
-Documentation for [UnitfulLinearAlgebra](https://github.com/ggebbie/UnitfulLinearAlgebra.jl).
+Documentation for [MultipliableMatrices](https://github.com/ggebbie/MultipliableMatrices.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [UnitfulLinearAlgebra]
+Modules = [MultipliableMatrices]
 ```
