@@ -54,6 +54,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using UnitfulLinearAlgebra
-            DocMeta.setdocmeta!(UnitfulLinearAlgebra, :DocTestSetup, :(using UnitfulLinearAlgebra); recursive=true)
-            doctest(UnitfulLinearAlgebra)'
+            using MultipliableMatrices
+            DocMeta.setdocmeta!(MultipliableMatrices, :DocTestSetup, :(using MultipliableMatrices); recursive=true)
+            doctest(MultipliableMatrices)'
